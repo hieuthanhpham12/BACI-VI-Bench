@@ -1,0 +1,35 @@
+{
+  "source_dataset": "CEPII-BACI HS17 V202601",
+  "years": [
+    "2017",
+    "2018",
+    "2019",
+    "2020",
+    "2021",
+    "2022",
+    "2023",
+    "2024"
+  ],
+  "default_network": {
+    "m_exporters": 10,
+    "n_importers": 10,
+    "k_sectors": 5,
+    "l_routes": 1,
+    "dimension": 500
+  },
+  "sector_network": {
+    "m_exporters": 10,
+    "n_importers": 10,
+    "k_sectors": 1,
+    "l_routes": 1,
+    "dimension": 100
+  },
+  "normalization": "trade value converted from thousand USD to million USD and divided by maximum retained flow value per instance",
+  "cost_operator": {
+    "b_congestion": 0.25,
+    "tau_transport": 0.05,
+    "price_form": "p_kj/(1+d_kj*import_total)"
+  },
+  "feasible_set": "nonnegative flows with exporter-wise capacity sum_{k,j,l} x[k,i,j,l] <= supply_cap[i]",
+  "residual": "natural projection residual ||x-P_C(x-F(x))||"
+}

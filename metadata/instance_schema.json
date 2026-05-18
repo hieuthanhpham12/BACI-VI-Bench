@@ -1,0 +1,28 @@
+{
+  "dataset_name": "BACI-VI-Bench",
+  "version": "0.1-pre-zenodo",
+  "npz_variables": {
+    "x_obs": "Normalized observed trade-flow tensor, shape (K,m,n,L).",
+    "flow_value_musd": "Aggregated retained trade value in million current USD, shape (K,m,n,L).",
+    "flow_quantity_ton": "Aggregated retained trade quantity in tonnes where available, shape (K,m,n,L).",
+    "exporter_codes": "BACI exporter country codes retained in the instance.",
+    "importer_codes": "BACI importer country codes retained in the instance.",
+    "exporter_names": "Short exporter labels when country metadata are available.",
+    "importer_names": "Short importer labels when country metadata are available.",
+    "sector_names": "Commodity-sector labels derived from HS2 chapters.",
+    "uv_exporter_norm": "Exporter-side normalized unit values, shape (K,m).",
+    "uv_importer_norm": "Importer-side normalized unit values, shape (K,n).",
+    "supply_cap": "Exporter-wise capacity vector defining the feasible set C.",
+    "demand_total": "Importer-wise observed demand totals in normalized units.",
+    "a_cost": "Calibrated production-cost coefficients, shape (K,m).",
+    "b_congestion": "Scalar congestion coefficient.",
+    "tau_transport": "Scalar transport-cost coefficient.",
+    "p_price": "Calibrated demand-price scale parameters, shape (K,n).",
+    "d_demand": "Calibrated demand-sensitivity parameters, shape (K,n).",
+    "normalization_scale_musd": "Maximum retained flow value used for normalization.",
+    "metadata_json": "Embedded JSON metadata."
+  },
+  "vi_formulation": "Find x* in C such that <F(x*), x-x*> >= 0 for all x in C.",
+  "residual": "R(x)=||x-P_C(x-F(x))||.",
+  "marl_metric": "rho_eq(x)=1/(1+R(x))."
+}

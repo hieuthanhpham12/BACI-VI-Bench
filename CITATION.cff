@@ -1,0 +1,19 @@
+cff-version: 1.2.0
+title: "BACI-VI-Bench: A BACI-Derived Dataset for Variational Inequality and Multi-Agent Reinforcement Learning Benchmarking in Trade Network Equilibrium Problems"
+message: "If you use this dataset, please cite the Zenodo record and the original CEPII-BACI source."
+type: dataset
+authors:
+  - family-names: Pham
+    given-names: Thanh Hieu
+    affiliation: Posts and Telecommunications Institute of Technology, Vietnam
+version: "v2"
+date-released: "2026-05-18"
+repository-code: "https://github.com/hieuthanhpham12/BACI-VI-Bench"
+doi: "10.5281/zenodo.20266673"
+keywords:
+  - international trade
+  - variational inequality
+  - multi-agent reinforcement learning
+  - benchmark dataset
+  - CEPII-BACI
+  - trade network equilibrium
