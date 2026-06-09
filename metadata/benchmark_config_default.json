@@ -18,6 +18,7 @@
     "dimension": 500
   },
   "sector_network": {
+    "year": "2022",
     "m_exporters": 10,
     "n_importers": 10,
     "k_sectors": 1,
@@ -26,10 +27,38 @@
   },
   "normalization": "trade value converted from thousand USD to million USD and divided by maximum retained flow value per instance",
   "cost_operator": {
+    "operator_form": "F[k,i,j,l] = a_cost[k,i]*(1 + b_congestion*sum_{j,l} x[k,i,j,l]) + tau_transport*a_cost[k,i] - p_price[k,j]/(1 + d_demand[k,j]*sum_{i,l} x[k,i,j,l])",
     "b_congestion": 0.25,
     "tau_transport": 0.05,
-    "price_form": "p_kj/(1+d_kj*import_total)"
+    "fixed_defaults_note": "b_congestion and tau_transport are reproducible benchmark defaults, not structurally estimated parameters.",
+    "calibration_formulas_used_by_code": {
+      "a_cost[k,i]": "0.5 * clip(uv_exporter_norm[k,i], 0.2, 5.0)",
+      "import_total[k,j]": "sum_{i,l} x_obs[k,i,j,l]",
+      "export_total[k,i]": "sum_{j,l} x_obs[k,i,j,l]",
+      "d_demand[k,j]": "0.4 / max(import_total[k,j], 0.01)",
+      "avg_cost[k,j]": "mean over active exporters i with x_obs[k,i,j,:].sum()>0 of a_cost[k,i]*(1+b_congestion*export_total[k,i]) + tau_transport*a_cost[k,i]; otherwise mean_i a_cost[k,i]",
+      "p_price[k,j]": "max(avg_cost[k,j]*(1+d_demand[k,j]*import_total[k,j]), 0.8*avg_cost[k,j])"
+    }
   },
   "feasible_set": "nonnegative flows with exporter-wise capacity sum_{k,j,l} x[k,i,j,l] <= supply_cap[i]",
-  "residual": "natural projection residual ||x-P_C(x-F(x))||"
+  "residual": "natural projection residual ||x-P_C(x-F(x))||",
+  "dataset_version": "v0.3",
+  "sector_policy": {
+    "year_level_country_selection": "Top 10 exporters and top 10 importers are selected independently for each year by aggregate bilateral trade value.",
+    "year_level_sector_labels": [
+      "Machinery",
+      "Minerals",
+      "Chemicals",
+      "Transport",
+      "Metals"
+    ],
+    "year_level_sector_order": "Fixed canonical order in NPZ files after running run_pipeline.py.",
+    "sector_level_scope": "Five single-sector instances are generated for year 2022."
+  },
+  "operator_properties": {
+    "lipschitz_continuity": "F is Lipschitz continuous on compact C under the stored finite parameter arrays.",
+    "lipschitz_bound": "L_F <= max_{k,i,j} { b_congestion*a_cost[k,i]*K*n + p_price[k,j]*d_demand[k,j]*K*m }",
+    "pseudomonotonicity_note": "The instances are intended as pseudomonotone network-equilibrium benchmarks; strict monotonicity and uniqueness are not guaranteed.",
+    "reference_solution_note": "Pre-computed high-accuracy reference solutions are not stored in v0.3; users may approximate them with included solvers and a tight residual tolerance such as G(x)<1e-8."
+  }
 }

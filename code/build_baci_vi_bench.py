@@ -2,6 +2,8 @@
 """
 Build BACI-VI-Bench processed instances from local CEPII-BACI HS17 CSV files.
 
+Dataset version: v0.3
+
 This script constructs a BACI-derived benchmark layer for variational inequality
 (VI) and multi-agent reinforcement learning (MARL) experiments. It does not
 redistribute or replace the original CEPII-BACI database. Users must download
@@ -198,6 +200,12 @@ def aggregate_network(
         if not np.isnan(q) and q > 0:
             raw[(i, j, sec)][1] += q
 
+    # --- Per-year selection ---
+    # For year-level instances (K=5, d=500), exporters, importers, AND sectors
+    # are all selected per-year based on that year's total trade value.
+    # The top-K sectors can therefore differ across years.
+    # For sector-level instances (K=1, d=100) built by build_sector_instances.py,
+    # the sector is specified explicitly and is fixed (not selected per-year).
     exporters = [c for c, _ in sorted(exp_total.items(), key=lambda z: -z[1])[:m_exporters]]
     importers = [c for c, _ in sorted(imp_total.items(), key=lambda z: -z[1])[:n_importers]]
     sectors = [s for s, _ in sorted(sec_total.items(), key=lambda z: -z[1])[:k_sectors]]
@@ -276,6 +284,24 @@ def aggregate_network(
 
 
 def calibrate_operator(instance: dict, b_congestion: float = 0.25, tau_transport: float = 0.05) -> dict:
+    """
+    Calibrate VI operator parameters from the BACI flow instance.
+
+    Data-calibrated parameters (derived from BACI unit values per instance):
+      a_cost[k, i]   -- exporter/sector production-cost coefficient,
+                        computed from normalised unit value (value/quantity).
+      p_price[k, j]  -- importer demand-price scale, set so that observed
+                        flows approximately satisfy cost-covering conditions.
+      d_demand[k, j] -- demand-price sensitivity, calibrated so that the
+                        implied price elasticity at observed import totals
+                        equals 0.4 (d_kj = 0.4 / max(import_total, 0.01)).
+
+    Fixed default scalars (NOT calibrated from data; same for all instances):
+      b_congestion  = 0.25  -- marginal congestion/production-cost slope;
+      tau_transport = 0.05  -- transport-cost loading factor.
+    These defaults can be overridden via --b-congestion and --tau-transport
+    command-line arguments (not yet exposed; add to argparse if needed).
+    """
     x = instance["x_obs"]
     K, m, n, L = x.shape
     a_cost = np.clip(instance["uv_exporter_norm"], 0.2, 5.0) * 0.5

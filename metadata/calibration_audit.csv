@@ -1,0 +1,14 @@
+file,max_abs_err_a_cost,max_abs_err_p_price,max_abs_err_d_demand
+baci_vi_HS17_Y2022_Chemicals_m10_n10_K1_L1.npz,0.0,0.0,0.0
+baci_vi_HS17_Y2022_Machinery_m10_n10_K1_L1.npz,0.0,0.0,0.0
+baci_vi_HS17_Y2022_Metals_m10_n10_K1_L1.npz,0.0,0.0,0.0
+baci_vi_HS17_Y2022_Minerals_m10_n10_K1_L1.npz,0.0,0.0,0.0
+baci_vi_HS17_Y2022_Transport_m10_n10_K1_L1.npz,0.0,0.0,0.0
+baci_vi_HS17_Y2017_V202601_m10_n10_K5_L1.npz,0.0,0.0,0.0
+baci_vi_HS17_Y2018_V202601_m10_n10_K5_L1.npz,0.0,0.0,0.0
+baci_vi_HS17_Y2019_V202601_m10_n10_K5_L1.npz,0.0,0.0,0.0
+baci_vi_HS17_Y2020_V202601_m10_n10_K5_L1.npz,0.0,0.0,0.0
+baci_vi_HS17_Y2021_V202601_m10_n10_K5_L1.npz,0.0,0.0,0.0
+baci_vi_HS17_Y2022_V202601_m10_n10_K5_L1.npz,0.0,0.0,0.0
+baci_vi_HS17_Y2023_V202601_m10_n10_K5_L1.npz,0.0,0.0,0.0
+baci_vi_HS17_Y2024_V202601_m10_n10_K5_L1.npz,0.0,0.0,0.0

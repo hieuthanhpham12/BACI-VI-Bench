@@ -6,7 +6,12 @@ authors:
   - family-names: Pham
     given-names: Thanh Hieu
     affiliation: Posts and Telecommunications Institute of Technology, Vietnam
-version: "v2"
+    orcid: "https://orcid.org/0009-0002-2786-2834"
+  - family-names: Nguyen
+    given-names: Kieu Linh
+    affiliation: Posts and Telecommunications Institute of Technology, Vietnam
+    orcid: "https://orcid.org/0009-0005-6854-1350"
+version: "v0.3"
 date-released: "2026-05-18"
 repository-code: "https://github.com/hieuthanhpham12/BACI-VI-Bench"
 doi: "10.5281/zenodo.20266673"
