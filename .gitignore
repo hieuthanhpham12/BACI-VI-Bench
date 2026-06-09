@@ -1,7 +1,7 @@
 # Large data files — stored on Zenodo, not GitHub
 # processed_instances/
 *.npz
-
+!processed_instances/**/*.npz
 # Raw BACI source files (not redistributed)
 *.csv.gz
 BACI_HS17_V202601_*.csv
