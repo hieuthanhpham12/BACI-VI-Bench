@@ -1,5 +1,5 @@
 # Large data files — stored on Zenodo, not GitHub
-processed_instances/
+# processed_instances/
 *.npz
 
 # Raw BACI source files (not redistributed)
